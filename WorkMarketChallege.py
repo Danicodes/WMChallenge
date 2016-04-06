@@ -3,7 +3,7 @@
 ## Date: 4/6/16
 
 #Open file and remove newline characters
-with open("C:\Users\Dani\Documents\Blogging\scriptassets\Resume_WilliamsDanielle.txt", "r") as resumeText:
+with open("C:\Users\Dani\Documents\Blogging\scripts\WMChallenge\Resume_WilliamsDanielle.txt", "r") as resumeText:
 	resumeData=resumeText.read().replace("\n", "")
 
 #Use re.sub to remove white space characters 
@@ -35,12 +35,16 @@ import plotly.graph_objs as go
 resumeBarX = [] #plot's x labels
 resumeBarY = [] #plot's y values
 
-for key in letterDict:
-    resumeBarX.append(key)
-    resumeBarY.append(letterDict[key])
+#Sort dictionary pairs!
+import operator
+sortedLetterDict = sorted(letterDict.items(), key=operator.itemgetter(0))
+
+for pair in sortedLetterDict:
+    resumeBarX.append(pair[0])
+    resumeBarY.append(pair[1])
 
 resumeBar = go.Bar(
-    resumeBarX, resumeBarY,
+    x=resumeBarX, y=resumeBarY,
     marker=dict(color='rgb(158,202,225)',
                 line=dict(color='rgb(8,48,107)',
                     width=1.5,)
